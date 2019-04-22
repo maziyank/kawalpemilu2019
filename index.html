@@ -1,13 +1,13 @@
 <head>
   <!-- Plotly.js -->
   <title>Visualisasi Data KawalPemilu 2019</title>
-  
+
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  
+
   <link rel="apple-touch-icon" sizes="144x144" href="https://kawalpemilu.org/assets/logo/apple-icon-144x144.png" />
   <link rel="icon" type="image/png" sizes="96x96" href="https://kawalpemilu.org/assets/logo/favicon-96x96.png" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -15,17 +15,15 @@
 
 <body>
   <div class="container">
-    <div class="col-lg-12">  
-  <h1 class="display-4">Perolehan Suara Sementara Pilpres 2019 Per Provinsi (%) </h1>
-  <div class="alert alert-primary" role="alert">
-    Semua informasi bersumber dari website <a href="https://kawalpemilu.org">kawalpemilu.org</a> dan bukan merupakan hasil resmi dari penyelenggara Pemilu. 
+    <div class="col-lg-12">
+      <h2 class="display-4">Perolehan Suara Sementara Pilpres 2019 Per Provinsi (%) </h2>
+      <div class="alert alert-primary" role="alert">
+        Semua informasi bersumber dari website <a href="https://kawalpemilu.org">kawalpemilu.org</a> dan bukan merupakan hasil resmi dari penyelenggara Pemilu.
+      </div>
+      <div id="myDiv" style="width: 1800px; height: 800px;"></div>
+    </div>
   </div>
-   <div id="myDiv" style="width: 1800px; height: 800px;">
-    <!-- Plotly chart will be drawn inside this DIV -->
-  </div>
-   </div> 
-  </div>
-  
+
   <script>
     function ProperRoundCircle(num, decimal = 3) {
       return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal);
