@@ -98,17 +98,6 @@
 
     getKP(0);
 
-    document.getElementById('myDiv').on('plotly_afterplot', function() {
-      var yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
-      var bar = document.querySelector('.plot .barlayer .bars path')
-      var barHeight = bar.getBBox().height
-      var offset = 12
 
-      for (var i = 0; i < yAxisLabels.length; i++) {
-        var yAxisLabel = yAxisLabels[i];
-        yAxisLabel.setAttribute('text-anchor', 'start')
-        yAxisLabel.setAttribute('y', yAxisLabel.getAttribute('y') - (barHeight / 2) - offset)
-      }
-    })
   </script>
 </body>
