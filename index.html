@@ -1,0 +1,102 @@
+<head>
+  <!-- Plotly.js -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <h1 style="text-align:center">
+    Perolehan Suara Pilpres 2019 Per Provinsi (%)
+  </h1>
+  <div id="myDiv" style="width: 480px; height: 400px;">
+    <!-- Plotly chart will be drawn inside this DIV -->
+  </div>
+  <script>
+    function ProperRoundCircle(num, decimal = 3) {
+      return Math.round(num * Math.pow(10, decimal)) / Math.pow(10, decimal);
+    }
+
+    function getKP(id) {
+      $.ajax({
+        url: 'https://kawal-c1.appspot.com/api/c/' + id + '?' + new Date().getTime(),
+        dataType: 'json'
+      }).done(function(data) {
+
+        let nmProv = data.children.map(x => x[1] + '  ');
+        let kdProv = data.children.map(x => x[0]);
+
+        detail = Object.entries(data.data);
+
+        let pasLon1 = detail.map(x => ProperRoundCircle(x[1].sum.pas1 / (x[1].sum.pas1 + x[1].sum.pas2) * 100));
+        let pasLon2 = detail.map(x => ProperRoundCircle(x[1].sum.pas2 / (x[1].sum.pas1 + x[1].sum.pas2) * 100));
+
+        var trace1 = {
+          x: pasLon1,
+          y: nmProv,
+          name: 'Jokowi-Maruf Amin',
+          orientation: 'h',
+          marker: {
+            color: 'rgba(55,128,191,0.6)',
+            width: 1
+          },
+          type: 'bar'
+        };
+
+        var trace2 = {
+          x: pasLon2,
+          y: nmProv,
+          name: 'Prabowo-Sandi',
+          orientation: 'h',
+          type: 'bar',
+          marker: {
+            color: 'rgba(255,153,51,0.6)',
+            width: 1
+          }
+        };
+
+        var data = [trace1, trace2];
+
+        var layout = {
+          barmode: 'relative',
+          showlegend: true,
+          legend: {
+            orientation: 'h',
+            x: 0,
+            y: 5
+          },
+          yaxis: {
+            autorange: 'reversed'
+          },
+          width: 800,
+          height: 1800,
+          margin: {
+            l: 300,
+            t: 50
+          }
+        };
+
+        Plotly.newPlot('myDiv', data, layout, {
+          showSendToCloud: true
+        });
+
+      });
+
+    }
+
+    getKP(0);
+
+    document.getElementById('myDiv').on('plotly_afterplot', function() {
+      var yAxisLabels = [].slice.call(document.querySelectorAll('[class^="yaxislayer"] .ytick text, [class*=" yaxislayer"] .ytick text'))
+      var bar = document.querySelector('.plot .barlayer .bars path')
+      var barHeight = bar.getBBox().height
+      var offset = 12
+
+      for (var i = 0; i < yAxisLabels.length; i++) {
+        var yAxisLabel = yAxisLabels[i];
+        yAxisLabel.setAttribute('text-anchor', 'start')
+        yAxisLabel.setAttribute('y', yAxisLabel.getAttribute('y') - (barHeight / 2) - offset)
+      }
+    })
+
+  </script>
+</body>
